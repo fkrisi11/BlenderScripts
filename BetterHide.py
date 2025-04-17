@@ -9,6 +9,10 @@ bl_info = {
 }
 
 import bpy
+import time
+
+_last_h_time = 0
+_double_press_threshold = 0.3  # seconds
 
 def get_outliner_selected_objects():
     for window in bpy.context.window_manager.windows:
@@ -22,10 +26,19 @@ def get_outliner_selected_objects():
                             'area': area,
                             'region': region
                         }
+
                         try:
-                            with bpy.context.temp_override(**override):
+                            if hasattr(bpy.context, "temp_override"):
+                                with bpy.context.temp_override(**override):
+                                    return [
+                                        id for id in bpy.context.selected_ids
+                                        if isinstance(id, bpy.types.Object)
+                                    ]
+                            else:
+                                ctx = bpy.context.copy()
+                                ctx.update(override)
                                 return [
-                                    id for id in bpy.context.selected_ids
+                                    id for id in ctx.get("selected_ids", [])
                                     if isinstance(id, bpy.types.Object)
                                 ]
                         except:
@@ -33,22 +46,31 @@ def get_outliner_selected_objects():
     return []
 
 class OBJECT_OT_better_hide(bpy.types.Operator):
-    """Smart H toggle that works even for hidden objects selected in Outliner."""
     bl_idname = "object.better_hide"
-    bl_label = "Better Hide Toggle"
+    bl_label = "Better Hide Toggle (Per-Object + Double-H)"
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
+        global _last_h_time
+
+        now = time.time()
+        double_press = (now - _last_h_time) < _double_press_threshold
+        _last_h_time = now
+
         selected = get_outliner_selected_objects()
 
         if not selected:
             self.report({'WARNING'}, "No objects selected.")
             return {'CANCELLED'}
 
-        any_visible = any(not obj.hide_get() for obj in selected)
-
-        for obj in selected:
-            obj.hide_set(any_visible)
+        if double_press:
+            # Force-hide all selected
+            for obj in selected:
+                obj.hide_set(True)
+        else:
+            # Per-object toggle
+            for obj in selected:
+                obj.hide_set(not obj.hide_get())
 
         return {'FINISHED'}
 
