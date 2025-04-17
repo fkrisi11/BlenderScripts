@@ -9,6 +9,6 @@ Currently available:
     <b>Auto Orbit Selection:</b> Auto-enables Orbit Selection when an object is selected, disables it otherwise
   </li>
   <li>
-    <b>Better Hide:</b> Changes how hiding with the H key works in object mode. H now toggles between hidden / unhidden. Double tapping H hides all selected items.
+    <b>Better Hide:</b> Changes how the H key works in object mode. H now toggles between hidden / unhidden. H twice hides all selected items.
   </li>
 </ul>
