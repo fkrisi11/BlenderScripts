@@ -82,9 +82,15 @@ def register():
     wm = bpy.context.window_manager
     kc = wm.keyconfigs.addon
     if kc:
-        km = kc.keymaps.new(name='Object Mode', space_type='EMPTY')
-        kmi = km.keymap_items.new("object.better_hide", type='H', value='PRESS')
-        addon_keymaps.append((km, kmi))
+        # Register for Object Mode (3D View)
+        km_obj = kc.keymaps.new(name='Object Mode', space_type='EMPTY')
+        kmi_obj = km_obj.keymap_items.new("object.better_hide", type='H', value='PRESS')
+        addon_keymaps.append((km_obj, kmi_obj))
+
+        # Register for Outliner
+        km_outliner = kc.keymaps.new(name='Outliner', space_type='OUTLINER')
+        kmi_outliner = km_outliner.keymap_items.new("object.better_hide", type='H', value='PRESS')
+        addon_keymaps.append((km_outliner, kmi_outliner))
 
 def unregister():
     for km, kmi in addon_keymaps:
