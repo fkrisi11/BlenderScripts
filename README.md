@@ -11,4 +11,7 @@ Currently available:
   <li>
     <b>Better Hide:</b> Changes how the H key works in object mode. H now toggles between hidden / unhidden. H twice hides all selected items.
   </li>
+  <li>
+    <b>Vertex Group Cleaner:</b> Deletes all vertex groups from the selected meshes, that are not in use
+  </li>
 </ul>
