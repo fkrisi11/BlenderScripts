@@ -14,4 +14,7 @@ Currently available:
   <li>
     <b>Vertex Group Cleaner:</b> Deletes all vertex groups from the selected meshes, that are not in use
   </li>
+  <li>
+    <b>Save Reminder:</b> Reminds you with an on-screen text if you haven't saved in a while, after a user-defined time
+  </li>
 </ul>
