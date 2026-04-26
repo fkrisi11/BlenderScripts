@@ -9,7 +9,10 @@ Currently available:
     <b>Auto Orbit Selection:</b> Auto-enables Orbit Selection when an object is selected, disables it otherwise
   </li>
   <li>
-    <b>Better Hide:</b> Changes how the H key works in object mode. H now toggles between hidden / unhidden. H twice hides all selected items.
+    <b>Better Hide:</b> Changes how the H key works in object mode. H now toggles between hidden / unhidden. H twice hides all selected items
+  </li>
+  <li>
+    <b>Blendshape Visualizer:</b> Shows information about what parts of a mesh the selected blendshape affects
   </li>
   <li>
     <b>Vertex Group Cleaner:</b> Deletes all vertex groups from the selected meshes, that are not in use
